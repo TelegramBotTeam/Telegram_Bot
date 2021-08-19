@@ -1,0 +1,17 @@
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\DapperDll.dll
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\DapperDll.pdb
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\Dapper.dll
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\System.Configuration.ConfigurationManager.dll
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\System.Security.AccessControl.dll
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\System.Security.Permissions.dll
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\System.Security.Principal.Windows.dll
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\Dapper.xml
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\System.Configuration.ConfigurationManager.xml
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\System.Security.AccessControl.xml
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\System.Security.Permissions.xml
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\obj\Debug\DapperDll.csprojAssemblyReference.cache
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\obj\Debug\DapperDll.csproj.CoreCompileInputs.cache
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\obj\Debug\DapperDll.csproj.CopyComplete
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\obj\Debug\DapperDll.dll
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\DapperDll\DapperDll\obj\Debug\DapperDll.pdb
