@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotReceiver", "BotReceiver\BotReceiver.csproj", "{505FF4DD-84E8-4427-96E2-640746911936}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{505FF4DD-84E8-4427-96E2-640746911936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{505FF4DD-84E8-4427-96E2-640746911936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{505FF4DD-84E8-4427-96E2-640746911936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{505FF4DD-84E8-4427-96E2-640746911936}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {66082DB5-978F-44FB-A5B5-50F7877DDE4A}
+	EndGlobalSection
+EndGlobal

@@ -10,8 +10,10 @@ namespace DapperDll
     public class Admin
     {
         public int Admin_Id { get; set; }
-        public string Admin_TelegramId { get; set; }
-        public int Admin_ChatId { get; set; }
+        public long Admin_TelegramId { get; set; }
+        public string Admin_Login { get; set; }
+        public string Admin_Password { get; set; }
+        public long Admin_ChatId { get; set; }
     }
 
     public class Admin_Repository
@@ -67,8 +69,8 @@ namespace DapperDll
 
         public static void Insert(Admin value)
         {
-            const string procedure = "EXEC [InsertAdmin] @Admin_TelegramId, @Admin_ChatId";
-            var values = new { Admin_TelegramId = value.Admin_TelegramId, Admin_ChatId = value.Admin_ChatId };
+            const string procedure = "EXEC [InsertAdmin] @Admin_TelegramId, @Admin_Login, @Admin_Password, @Admin_ChatId";
+            var values = new { Admin_TelegramId = value.Admin_TelegramId, Admin_Login = value.Admin_Login, Admin_Password = value.Admin_Password, Admin_ChatId = value.Admin_ChatId };
 
             using (IDbConnection db = new SqlConnection(ConnStr))
             {
@@ -92,8 +94,8 @@ namespace DapperDll
 
         public static void Update(Admin oldValue, Admin newValue)
         {
-            const string procedure = "EXEC [UpdateAdmin] @Admin_Id, @Admin_TelegramId";
-            var values = new { Admin_Id = oldValue.Admin_Id, Admin_TelegramId = newValue.Admin_TelegramId };
+            const string procedure = "EXEC [UpdateAdmin] @Admin_Id, @Admin_TelegramId, @Admin_Login, @Admin_Password";
+            var values = new { Admin_Id = oldValue.Admin_Id, Admin_TelegramId = newValue.Admin_TelegramId, Admin_Login = newValue.Admin_Login, Admin_Password = newValue.Admin_Password };
 
             using (IDbConnection db = new SqlConnection(ConnStr))
             {

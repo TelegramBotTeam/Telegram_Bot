@@ -10,9 +10,9 @@ namespace DapperDll
     public class Query
     {
         public int Query_Id { get; set; }
-        public string Query_TelegramId { get; set; }
+        public long Query_TelegramId { get; set; }
         public string Query_Text { get; set; }
-        public int Query_ChatId { get; set; }
+        public long Query_ChatId { get; set; }
     }
 
     public class Query_Repository

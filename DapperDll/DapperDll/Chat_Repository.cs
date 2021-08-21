@@ -10,7 +10,7 @@ namespace DapperDll
     public class Chat
     {     
         public int Chat_Id { get; set; }
-        public string Chat_TelegramId { get; set; }
+        public long Chat_TelegramId { get; set; }
     }
 
     public class Chat_Repository

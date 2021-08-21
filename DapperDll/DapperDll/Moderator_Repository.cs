@@ -10,9 +10,12 @@ namespace DapperDll
     public class Moderator
     {
         public int Moderator_Id { get; set; }
-        public string Moderator_TelegramId { get; set; }
-        public int Moderator_ChatId { get; set; }
+        public long Moderator_TelegramId { get; set; }
+        public string Moderator_Login { get; set; }
+        public string Moderator_Password { get; set; }
+        public long Moderator_ChatId { get; set; }
     }
+
 
     public class Moderator_Repository
     {
@@ -67,8 +70,8 @@ namespace DapperDll
 
         public static void Insert(Moderator value)
         {
-            const string procedure = "EXEC [InsertModerator] @Moderator_TelegramId, @Moderator_ChatId";
-            var values = new { Moderator_TelegramId = value.Moderator_TelegramId, Moderator_ChatId = value.Moderator_ChatId };
+            const string procedure = "EXEC [InsertModerator] @Moderator_TelegramId, @Moderator_Login, @Moderator_Password, @Moderator_ChatId";
+            var values = new { Moderator_TelegramId = value.Moderator_TelegramId, Moderator_Login = value.Moderator_Login, Moderator_Password = value.Moderator_Password, Moderator_ChatId = value.Moderator_ChatId };
 
             using (IDbConnection db = new SqlConnection(ConnStr))
             {
@@ -92,8 +95,8 @@ namespace DapperDll
 
         public static void Update(Moderator oldValue, Moderator newValue)
         {
-            const string procedure = "EXEC [UpdateModerator] @Moderator_Id, @Moderator_TelegramId";
-            var values = new { Moderator_Id = oldValue.Moderator_Id, Moderator_TelegramId = newValue.Moderator_TelegramId };
+            const string procedure = "EXEC [UpdateModerator] @Moderator_Id, @Moderator_TelegramId, @Moderator_Login, @Moderator_Password";
+            var values = new { Moderator_Id = oldValue.Moderator_Id, Moderator_TelegramId = newValue.Moderator_TelegramId, Moderator_Login = newValue.Moderator_Login, Moderator_Password = newValue.Moderator_Password };
 
             using (IDbConnection db = new SqlConnection(ConnStr))
             {
