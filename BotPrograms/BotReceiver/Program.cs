@@ -1,6 +1,7 @@
 ﻿using DapperDll;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using Telegram.Bot;
 
@@ -20,7 +21,7 @@ namespace BotReceiver
 
         private static void Main(string[] args)
         {
-            client = new TelegramBotClient("1968296428:AAFor-ldh3rwx7su379uCyHYqB1FqaaeVrE");
+            client = new TelegramBotClient(ConfigurationManager.ConnectionStrings["bot_key"].ConnectionString);
 
             client.OnMessage += Client_OnMessage;
             client.StartReceiving();

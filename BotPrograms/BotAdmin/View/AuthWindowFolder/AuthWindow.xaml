@@ -1,0 +1,40 @@
+﻿<Window x:Class="BotAdmin.ViewModel.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BotAdmin.ViewModel"
+        mc:Ignorable="d"
+        Title="AuthWindow" Height="110" Width="260">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <Label Style="{DynamicResource StackPanelLabelStyle}">Username:</Label>
+            <Label Style="{DynamicResource StackPanelLabelStyle}">Password:</Label>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3">
+            <Border Style="{DynamicResource StackPanelBorderStyle}">
+                <TextBox Style="{DynamicResource StackPanelTextBoxStyle}" Text="{Binding LoginStr}"></TextBox>
+            </Border>
+            <Border Style="{DynamicResource StackPanelBorderStyle}">
+                <TextBox Style="{DynamicResource StackPanelTextBoxStyle}" Text="{Binding PassStr}"></TextBox>
+            </Border>
+        </StackPanel>     
+        <Border Style="{DynamicResource GridBorderStyle}" Grid.Column="1">
+            <Button Style="{DynamicResource GridButtonStyle}" Background="LimeGreen" Command="{Binding LoginCommand}">Log In</Button>
+        </Border>
+        <Border Style="{DynamicResource GridBorderStyle}" Grid.Column="2">
+            <Button Style="{DynamicResource GridButtonStyle}" Background="Red" Click="CancelButton_Click">Cancel</Button>
+        </Border>
+    </Grid>
+</Window>

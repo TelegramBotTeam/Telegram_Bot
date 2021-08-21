@@ -1,0 +1,79 @@
+﻿<Window x:Class="BotAdmin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BotAdmin" xmlns:local1="clr-namespace:BotAdmin.ViewModel"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}" Height="350" Width="400" Background="DarkSeaGreen">
+    <Window.Resources>
+        <local1:TelegramIdConverter x:Key="TelegramIdConverter"></local1:TelegramIdConverter>
+        <local1:ChatIdConverter x:Key="ChatIdConverter"></local1:ChatIdConverter>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <Style TargetType="Border">
+                <Setter Property="BorderBrush" Value="Green"></Setter>
+                <Setter Property="BorderThickness" Value="2"></Setter>
+                <Setter Property="Margin" Value="5"></Setter>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="FontSize" Value="15"></Setter>
+                <Setter Property="Background" Value="NavajoWhite"></Setter>
+                <Setter Property="Margin" Value="5"></Setter>
+                <Setter Property="IsEnabled" Value="False"></Setter>
+            </Style>
+        </Grid.Resources>
+
+        <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="20" Foreground="Green" Margin="5, 0, 0, 0">Запросы</Label>
+        <Border Grid.Column="0" Grid.Row="1">
+            <ScrollViewer>
+                <ListBox x:Name="QueryListBox" Background="NavajoWhite" ItemsSource="{Binding Queries}" SelectedItem="{Binding SelectedQuery}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <!--<TextBlock Text="{Binding Query_TelegramId, Converter={StaticResource TelegramIdConverter}, ConverterParameter={Binding Query_ChatId}}" FontWeight="Bold"></TextBlock>-->
+                                <TextBlock>
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text">
+                                                <Setter.Value>
+                                                    <MultiBinding Converter="{StaticResource TelegramIdConverter}">
+                                                        <Binding Path="Query_TelegramId"></Binding>
+                                                        <Binding Path="Query_ChatId"></Binding>
+                                                    </MultiBinding>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock Text="{Binding Query_ChatId, Converter={StaticResource ChatIdConverter}}" FontWeight="Bold"></TextBlock>
+                                <Separator></Separator>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Border>
+
+        <UniformGrid Grid.Column="1" Grid.Row="0" Columns="2">
+            <Button x:Name="acceptButton" Foreground="Green" Command="{Binding AcceptCommand}">Принять</Button>
+            <Button x:Name="rejectButton" Foreground="Red" Command="{Binding RejectCommand}">Отклонить</Button>
+        </UniformGrid>
+        <Border Grid.Column="1" Grid.Row="1">
+            <ScrollViewer>
+                <TextBlock Background="NavajoWhite" TextWrapping="Wrap" DataContext="{Binding SelectedQuery}" Text="{Binding Query_Text}"></TextBlock>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

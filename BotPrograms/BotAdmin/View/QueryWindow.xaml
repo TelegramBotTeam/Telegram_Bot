@@ -1,0 +1,40 @@
+﻿<Window x:Class="BotAdmin.View.QueryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BotAdmin.View"
+        x:Name="QueryWin" 
+        mc:Ignorable="d"
+        Height="145" Width="300" ResizeMode="NoResize" Title="{Binding WindowTitle}">
+    <Grid Background="DarkSeaGreen">
+        <Grid.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Background" Value="NavajoWhite"></Setter>
+                <Setter Property="Margin" Value="5"></Setter>
+                <Setter Property="BorderThickness" Value="2"></Setter>
+                <Setter Property="BorderBrush" Value="Green"></Setter>
+                <Setter Property="FontSize" Value="15"></Setter>
+                <Setter Property="MaxLength" Value="32"></Setter>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="FontSize" Value="15"></Setter>
+                <Setter Property="Foreground" Value="Green"></Setter>
+                <Setter Property="Margin" Value="5, 0, 0, 0"></Setter>
+                <Setter Property="Width" Value="75"></Setter>
+            </Style>
+        </Grid.Resources>
+        <StackPanel>
+            <DockPanel LastChildFill="True">
+                <Label>Логин</Label>
+                <TextBox Text="{Binding Login}"></TextBox>
+            </DockPanel>
+            <DockPanel LastChildFill="True">
+                <Label>Пароль</Label>
+                <TextBox Text="{Binding Password}"></TextBox>
+            </DockPanel>
+            <Button Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=QueryWin}" Background="NavajoWhite" Foreground="Green" FontWeight="Bold" Margin="5" FontSize="18">Добавить модератора</Button>
+        </StackPanel>
+    </Grid>
+</Window>
