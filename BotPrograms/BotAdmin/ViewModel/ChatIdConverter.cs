@@ -9,7 +9,7 @@ namespace BotAdmin.ViewModel
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Logic.client.GetChatAsync(Logic.chats.Find(x => x.Chat_Id == int.Parse(value.ToString())).Chat_TelegramId).Result.Title;
+            return Logic.client.GetChatAsync(Logic.chat.Chat_TelegramId).Result.Title;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

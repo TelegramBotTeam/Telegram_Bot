@@ -12,7 +12,7 @@ namespace BotAdmin
         public MainWindow(Admin currentAdmin)
         {
             InitializeComponent();
-            this.DataContext = new BotAdminViewModel(currentAdmin, ref acceptButton, ref rejectButton);
+            this.DataContext = new BotAdminViewModel(currentAdmin, ref acceptButton, ref rejectButton, ref deleteButton);
         }
     }
 }

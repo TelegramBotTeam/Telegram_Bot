@@ -1,0 +1,88 @@
+﻿<Window x:Class="BotModerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BotModerator" xmlns:local1="clr-namespace:BotModerator.ViewModel"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}" Height="450" Width="800" Background="DarkSeaGreen">
+    <Window.Resources>
+        <local1:TelegramIdConverter x:Key="TelegramIdConverter"></local1:TelegramIdConverter>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <Style TargetType="Border">
+                <Setter Property="BorderBrush" Value="Green"></Setter>
+                <Setter Property="BorderThickness" Value="2"></Setter>
+                <Setter Property="Margin" Value="5"></Setter>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="FontSize" Value="15"></Setter>
+                <Setter Property="Background" Value="NavajoWhite"></Setter>
+                <Setter Property="Margin" Value="5"></Setter>
+                <!--<Setter Property="IsEnabled" Value="False"></Setter>-->
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="FontSize" Value="20"></Setter>
+                <Setter Property="Foreground" Value="Green"></Setter>
+                <Setter Property="Margin" Value="5, 0, 0, 0"></Setter>
+            </Style>
+        </Grid.Resources>
+
+        <Label Grid.Column="0" Grid.Row="0">Члены группы</Label>
+        <Border Grid.Column="0" Grid.Row="1">
+            <ScrollViewer>
+                <ListBox x:Name="MemberListBox" Background="NavajoWhite" ItemsSource="{Binding Members}" SelectedItem="{Binding SelectedMember}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Text="{Binding Member_TelegramId, Converter={StaticResource TelegramIdConverter}}"></TextBlock>
+                                <!--<TextBlock FontWeight="Bold">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text">
+                                                <Setter.Value>
+                                                    <MultiBinding Converter="{StaticResource TelegramIdConverter}">
+                                                        <Binding Path="Member_TelegramId"></Binding>
+                                                        <Binding Path="Member_ChatId"></Binding>
+                                                    </MultiBinding>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>-->
+                                <Separator></Separator>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Border>
+
+        <Label Grid.Column="1" Grid.Row="0">Текст для отправления</Label>
+        <Border Grid.Column="1" Grid.Row="1">
+            <ScrollViewer>
+                <TextBox Background="NavajoWhite" TextWrapping="Wrap" Text="{Binding MemberText}"></TextBox>
+            </ScrollViewer>
+        </Border>
+
+        <UniformGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Columns="2" Rows="2">
+            <Button x:Name="groupButton" Grid.Row="0" Grid.Column="0" Foreground="Green" Command="{Binding GroupCommand}">Написать в группу</Button>
+            <Button x:Name="membersButton" Grid.Row="0" Grid.Column="1" Foreground="Navy" Command="{Binding MembersCommand}">Разослать всем</Button>
+            <Button x:Name="memberButton" Grid.Row="1" Grid.Column="0" Foreground="Navy" Command="{Binding MemberCommand}" IsEnabled="False">Написать члену группы</Button>
+            <Button x:Name="kickButton" Grid.Row="1" Grid.Column="1" Foreground="Red" Command="{Binding KickCommand}" IsEnabled="False">Выгнать члена группы</Button>
+        </UniformGrid>
+    </Grid>
+</Window>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BotAdmin" xmlns:local1="clr-namespace:BotAdmin.ViewModel"
         mc:Ignorable="d"
-        Title="{Binding WindowTitle}" Height="350" Width="400" Background="DarkSeaGreen">
+        Title="{Binding WindowTitle}" Height="300" Width="600" Background="DarkSeaGreen">
     <Window.Resources>
         <local1:TelegramIdConverter x:Key="TelegramIdConverter"></local1:TelegramIdConverter>
         <local1:ChatIdConverter x:Key="ChatIdConverter"></local1:ChatIdConverter>
@@ -14,10 +14,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.Resources>
@@ -33,17 +35,40 @@
                 <Setter Property="Margin" Value="5"></Setter>
                 <Setter Property="IsEnabled" Value="False"></Setter>
             </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="FontSize" Value="20"></Setter>
+                <Setter Property="Foreground" Value="Green"></Setter>
+                <Setter Property="Margin" Value="5, 0, 0, 0"></Setter>
+            </Style>
         </Grid.Resources>
 
-        <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="20" Foreground="Green" Margin="5, 0, 0, 0">Запросы</Label>
+        <Label Grid.Column="0" Grid.Row="0">Модераторы</Label>
         <Border Grid.Column="0" Grid.Row="1">
+            <ScrollViewer>
+                <ListBox x:Name="ModeratorsListBox" Background="NavajoWhite" ItemsSource="{Binding Moderators}" SelectedItem="{Binding SelectedModerator}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Moderator_TelegramId, Converter={StaticResource TelegramIdConverter}}" FontWeight="Bold"></TextBlock>
+                                <Separator></Separator>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Border>
+        <Button x:Name="deleteButton" Grid.Column="0" Grid.Row="2" Foreground="Red" Command="{Binding DeleteCommand}">Удалить</Button>
+        
+        <Label Grid.Column="1" Grid.Row="0">Запросы</Label>
+        <Border Grid.Column="1" Grid.Row="1">
             <ScrollViewer>
                 <ListBox x:Name="QueryListBox" Background="NavajoWhite" ItemsSource="{Binding Queries}" SelectedItem="{Binding SelectedQuery}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <!--<TextBlock Text="{Binding Query_TelegramId, Converter={StaticResource TelegramIdConverter}, ConverterParameter={Binding Query_ChatId}}" FontWeight="Bold"></TextBlock>-->
-                                <TextBlock>
+                                <TextBlock Text="{Binding Query_TelegramId, Converter={StaticResource TelegramIdConverter}}" FontWeight="Bold"></TextBlock>
+                                <!--<TextBlock FontWeight="Bold">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="Text">
@@ -56,8 +81,8 @@
                                             </Setter>
                                         </Style>
                                     </TextBlock.Style>
-                                </TextBlock>
-                                <TextBlock Text="{Binding Query_ChatId, Converter={StaticResource ChatIdConverter}}" FontWeight="Bold"></TextBlock>
+                                </TextBlock>-->
+                                <!--<TextBlock Text="{Binding Query_ChatId, Converter={StaticResource ChatIdConverter}}" FontWeight="Bold"></TextBlock>-->
                                 <Separator></Separator>
                             </StackPanel>
                         </DataTemplate>
@@ -66,11 +91,12 @@
             </ScrollViewer>
         </Border>
 
-        <UniformGrid Grid.Column="1" Grid.Row="0" Columns="2">
+        <Label Grid.Column="2" Grid.Row="0">Комментарий</Label>
+        <UniformGrid Grid.Column="1" Grid.Row="2" Columns="2">
             <Button x:Name="acceptButton" Foreground="Green" Command="{Binding AcceptCommand}">Принять</Button>
             <Button x:Name="rejectButton" Foreground="Red" Command="{Binding RejectCommand}">Отклонить</Button>
         </UniformGrid>
-        <Border Grid.Column="1" Grid.Row="1">
+        <Border Grid.Column="2" Grid.Row="1">
             <ScrollViewer>
                 <TextBlock Background="NavajoWhite" TextWrapping="Wrap" DataContext="{Binding SelectedQuery}" Text="{Binding Query_Text}"></TextBlock>
             </ScrollViewer>
