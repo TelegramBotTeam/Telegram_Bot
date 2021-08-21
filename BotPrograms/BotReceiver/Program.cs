@@ -1,8 +1,11 @@
 ﻿using DapperDll;
+using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Text;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 
@@ -111,7 +114,7 @@ namespace BotReceiver
                 
             if (RegisterProcess(e) && RequestProcess(e))
             {
-                if (!members.Exists(x => x.Member_TelegramId == e.Message.From.Id && x.Member_ChatId == chats.Value.Find(y => y.Chat_TelegramId == e.Message.Chat.Id).Chat_Id) && e.Message.Chat.Type != ChatType.Private)
+                if (!members.Exists(x => x.Member_TelegramId == e.Message.From.Id) && e.Message.Chat.Type != ChatType.Private)
                 {
                     Member_Repository.Insert(new Member() { Member_TelegramId = e.Message.From.Id, Member_ChatId = chats.Value.Find(y => y.Chat_TelegramId == e.Message.Chat.Id).Chat_Id });
                     members = Member_Repository.Select();
@@ -119,47 +122,76 @@ namespace BotReceiver
 
                 try
                 {
-                    if (members.Exists(x => x.Member_TelegramId == e.Message.From.Id && x.Member_ChatId == chats.Value.Find(y => y.Chat_TelegramId == e.Message.Chat.Id).Chat_Id))
+                    switch (e.Message.Text)
                     {
-                        switch (e.Message.Text)
-                        {
-                            case "/admin":
+                        case "/admin":
+                            {
+                                if (e.Message.Chat.Type == ChatType.Private)
+                                    throw new Exception("Вы должны быть в беседе для выполнения данной команды.");
+
+                                if (!client.GetChatAdministratorsAsync(e.Message.Chat.Id).Result.ToList().Exists(x => x.User.Id == e.Message.From.Id))
+                                    throw new Exception($"Вы не являетесь администратором в беседе {e.Message.Chat.Title}.");
+
+                                if (admins.Value.Exists(x => x.Admin_TelegramId == e.Message.From.Id))
+                                    throw new Exception($"Вы уже являетесь администратором в беседе {e.Message.Chat.Title}.");
+
+                                if (members.Exists(x => x.Member_TelegramId == e.Message.From.Id && x.Member_ChatId == chats.Value.Find(y => y.Chat_TelegramId == e.Message.Chat.Id).Chat_Id))
                                 {
-                                    if (e.Message.Chat.Type == ChatType.Private)
-                                        throw new Exception("Вы должны быть в беседе для выполнения данной команды.");
-
-                                    if (!client.GetChatAdministratorsAsync(e.Message.Chat.Id).Result.ToList().Exists(x => x.User.Id == e.Message.From.Id))
-                                        throw new Exception($"Вы не являетесь администратором в беседе {e.Message.Chat.Title}.");
-
-                                    if (admins.Value.Exists(x => x.Admin_TelegramId == e.Message.From.Id))
-                                        throw new Exception($"Вы уже являетесь администратором в беседе {e.Message.Chat.Title}.");
-
                                     client.PinChatMessageAsync(e.Message.Chat.Id, client.SendTextMessageAsync(e.Message.Chat.Id, $"{e.Message.From.FirstName} собирается стать админом!").Result.MessageId);
 
                                     registeringAccounts.Value.Add(new Admin { Admin_TelegramId = e.Message.From.Id, Admin_ChatId = chats.Value.FirstOrDefault(x => x.Chat_TelegramId == e.Message.Chat.Id).Chat_Id });
 
                                     client.SendTextMessageAsync(e.Message.From.Id, "Введите ваш логин: ");
-
-                                    break;
                                 }
-                            case "/request":
+
+                                break;
+                            }
+                        case "/request":
+                            {
+                                if (e.Message.Chat.Type == ChatType.Private)
+                                    throw new Exception("Вы должны быть в беседе для выполнения данной команды.");
+
+                                if (moderators.Value.Exists(x => x.Moderator_TelegramId == e.Message.From.Id) || queries.Value.Exists(x => x.Query_TelegramId == e.Message.From.Id))
+                                    throw new Exception($"Вы уже являетесь модератором или отправили заявку на модерацию в беседе {e.Message.Chat.Title}.");
+
+                                if (members.Exists(x => x.Member_TelegramId == e.Message.From.Id && x.Member_ChatId == chats.Value.Find(y => y.Chat_TelegramId == e.Message.Chat.Id).Chat_Id))
                                 {
-                                    if (e.Message.Chat.Type == Telegram.Bot.Types.Enums.ChatType.Private)
-                                        throw new Exception("Вы должны быть в беседе для выполнения данной команды.");
-
-                                    if (moderators.Value.Exists(x => x.Moderator_TelegramId == e.Message.From.Id) || queries.Value.Exists(x => x.Query_TelegramId == e.Message.From.Id))
-                                        throw new Exception($"Вы уже являетесь модератором или отправили заявку на модерацию в беседе {e.Message.Chat.Title}.");
-
                                     client.PinChatMessageAsync(e.Message.Chat.Id, client.SendTextMessageAsync(e.Message.Chat.Id, $"{e.Message.From.FirstName} подаёт заявку на модерацию!").Result.MessageId);
 
                                     requestingModerators.Value.Add(new Query() { Query_TelegramId = e.Message.From.Id, Query_ChatId = chats.Value.FirstOrDefault(x => x.Chat_TelegramId == e.Message.Chat.Id).Chat_Id });
 
                                     client.SendTextMessageAsync(e.Message.From.Id, "Введите информацию о себе к запросу на модерацию (и желаемые данные для входа): ");
-
-                                    break;
                                 }
-                        }
+
+                                break;
+                            }
+                        //case "/news":
+                        //    {
+                        //        string content = string.Empty;
+
+                        //        using (WebClient webClient = new WebClient())
+                        //        {
+                        //            webClient.Encoding = Encoding.UTF8;
+                        //            content = webClient.DownloadString("https://www.5692.com.ua/news");
+                        //        }
+
+                        //        HtmlDocument document = new HtmlDocument();
+                        //        document.LoadHtml(content);
+
+                        //        HtmlNode newsNode = document.DocumentNode.SelectSingleNode("//div[@class=\'c-news-block\']");
+
+                        //        using (WebClient webClient = new WebClient())
+                        //        {
+                        //            webClient.Encoding = Encoding.UTF8;
+                        //            //content = webClient.DownloadString(newsNode.SelectSingleNode("//a[@class=\'c-news-block__title\']").Attributes["href"].Value);
+                        //            content = webClient.DownloadString("https://www.5692.com.ua/news/3186246/so-z-same-vidbuvaetsa-navkolo-paiv-petrikivsini");
+                        //        }
+
+                        //        client.SendTextMessageAsync(e.Message.From.Id, document.DocumentNode.SelectSingleNode("//app-model-content/p").InnerText);
+                        //        break;
+                        //    }
                     }
+                    
                 }
                 catch (Exception ex)
                 {

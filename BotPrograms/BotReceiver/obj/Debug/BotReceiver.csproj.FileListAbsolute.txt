@@ -26,3 +26,6 @@ C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\BotPrograms\BotReceiver\
 C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\BotPrograms\BotReceiver\bin\Debug\System.Security.AccessControl.xml
 C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\BotPrograms\BotReceiver\bin\Debug\System.Security.Permissions.xml
 C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\BotPrograms\BotReceiver\bin\Debug\System.Security.Principal.Windows.xml
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\BotPrograms\BotReceiver\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\BotPrograms\BotReceiver\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Илья\source\repos\WPF\Telegram_Bot_Project\BotPrograms\BotReceiver\bin\Debug\HtmlAgilityPack.xml
